@@ -75,5 +75,16 @@
       "installments_3": null,
       "installments_4": { "total_bgn": 302.27, "total_eur": 154.55, "first_bgn": 89.17, "others_bgn": 71.04 }
     }
+  ],
+  "casco_config": [
+    { "id": "dzi", "company": "ДЗИ", "rate": 0.048, "min_premium": 150 },
+    { "id": "bulstrad", "company": "Булстрад", "rate": 0.052, "min_premium": 180 },
+    { "id": "allianz", "company": "Алианц", "rate": 0.055, "min_premium": 200 },
+    { "id": "levins", "company": "Лев Инс", "rate": 0.042, "min_premium": 130 }
+  ],
+  "age_groups": [
+    { "label": "Нов (0-4г.)", "multiplier": 1.0, "service": "Официален сервиз" },
+    { "label": "5-10 години", "multiplier": 1.15, "service": "Доверен сервиз" },
+    { "label": "10+ години", "multiplier": 1.30, "service": "Експертна оценка" }
   ]
 }
