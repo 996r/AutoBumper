@@ -18,4 +18,5 @@ export const categoryApi = {
     getCivilLiability: () => api.get("/civil_liability"),
     getCasco: () => api.get("/casco_config"),
     getAgeGroups: () => api.get("/age_groups"),
+    getAssistanceEurope: () => api.get("/assistance_europe_rates"),
 };

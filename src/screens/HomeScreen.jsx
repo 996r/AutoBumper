@@ -37,7 +37,10 @@ export default function HomeScreen({ navigation }) {
       navigation.navigate("Liability"); 
     } else if (item.id === 2) {
       navigation.navigate("Casco");     
-    } else {
+    } else if(item.id === 3) {
+      navigation.navigate("Assistance")
+    } 
+    else {
       console.log("No screen defined for this category yet");
     }
   };
