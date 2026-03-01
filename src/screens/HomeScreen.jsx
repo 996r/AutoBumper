@@ -5,15 +5,19 @@ import {
   FlatList,
   ActivityIndicator,
   StyleSheet,
+  Image,
+  TouchableOpacity,
 } from "react-native";
 
-import { categoryApi } from "../api/categoryApi"; 
+import { categoryApi } from "../api/categoryApi";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CategoryCard from "../components/CategoryCard";
+import { useUser } from "../context/UserContext";
 
 export default function HomeScreen({ navigation }) {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user } = useUser();
 
   useEffect(() => {
     loadCategories();
@@ -22,8 +26,8 @@ export default function HomeScreen({ navigation }) {
   const loadCategories = async () => {
     try {
       const response = await categoryApi.getAll();
-    
-      setCategories(response.data); 
+
+      setCategories(response.data);
     } catch (error) {
       console.error("AutoBumper API Error:", error);
     } finally {
@@ -31,16 +35,14 @@ export default function HomeScreen({ navigation }) {
     }
   };
 
-  
   const handlePress = (item) => {
     if (item.id === 1) {
-      navigation.navigate("Liability"); 
+      navigation.navigate("Liability");
     } else if (item.id === 2) {
-      navigation.navigate("Casco");     
-    } else if(item.id === 3) {
-      navigation.navigate("Assistance")
-    } 
-    else {
+      navigation.navigate("Casco");
+    } else if (item.id === 3) {
+      navigation.navigate("Assistance");
+    } else {
       console.log("No screen defined for this category yet");
     }
   };
@@ -57,7 +59,15 @@ export default function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.brand}>AutoBumper</Text>
+     
+        <Image
+          source={require("../../assets/AutoBumperLogo.png")}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+
+        <Text style={styles.welcomeText}>Hello,</Text>
+        <Text style={styles.emailText}>{user?.email || "Guest"}</Text>
         <Text style={styles.subtitle}>Hit the bumper. Got insurance?</Text>
       </View>
 
@@ -65,11 +75,7 @@ export default function HomeScreen({ navigation }) {
         data={categories}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <CategoryCard
-            title={item.name}
-            
-            onPress={() => handlePress(item)} 
-          />
+          <CategoryCard title={item.name} onPress={() => handlePress(item)} />
         )}
         contentContainerStyle={styles.list}
       />
@@ -84,4 +90,15 @@ const styles = StyleSheet.create({
   brand: { fontSize: 28, fontWeight: "bold", color: "#007AFF" },
   subtitle: { fontSize: 16, color: "#666" },
   list: { padding: 15 },
+  logo: {
+    width: "100%",
+    height: 200,
+    alignSelf: "center",
+    marginBottom: 20,
+  },
+  logoutText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
 });

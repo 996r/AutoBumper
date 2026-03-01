@@ -20,3 +20,8 @@ export const categoryApi = {
     getAgeGroups: () => api.get("/age_groups"),
     getAssistanceEurope: () => api.get("/assistance_europe_rates"),
 };
+
+export const authApi = {
+  register: (userData) => api.post("/register", userData),
+  login: (credentials) => api.post("/login", credentials),
+};

@@ -1,23 +1,19 @@
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import RootNavigator from './navigation/RootNavigator';
 import { NavigationContainer } from '@react-navigation/native';
+import { UserProvider } from './context/UserContext';
+import RootNavigator from './navigation/RootNavigator';
 
 export default function App() {
+  
+  
   return (
-   <SafeAreaProvider>
-      <NavigationContainer>
-        <RootNavigator/>
-      </NavigationContainer>
+    <SafeAreaProvider>
+      <UserProvider>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </UserProvider>
     </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

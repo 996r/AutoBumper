@@ -22,11 +22,11 @@ const AutoAssistanceScreen = () => {
       try {
         setLoading(true);
         const response = await categoryApi.getAssistanceEurope();
-        // Guard for data format
+        
         const data = response.data || [];
         setAssistanceData(data);
         
-        // Default to the first age group (0-5 years)
+        
         if (data.length > 0) {
           setSelectedAgeGroup(data[0]);
         }
@@ -54,7 +54,7 @@ const AutoAssistanceScreen = () => {
         <Text style={styles.headerTitle}>Автоасистанс Европа</Text>
         <Text style={styles.headerSubtitle}>Изберете параметри за вашата застраховка</Text>
 
-        {/* 1. Age Group Selection */}
+        
         <Text style={styles.sectionLabel}>Възраст на МПС</Text>
         <View style={styles.ageToggleContainer}>
           {assistanceData.map((group) => (
@@ -66,7 +66,7 @@ const AutoAssistanceScreen = () => {
               ]}
               onPress={() => {
                 setSelectedAgeGroup(group);
-                setSelectedPeriod(null); // Reset period choice when age changes
+                setSelectedPeriod(null); 
               }}
             >
               <Text style={[
@@ -79,7 +79,7 @@ const AutoAssistanceScreen = () => {
           ))}
         </View>
 
-        {/* 2. Period Selection List */}
+      
         <Text style={styles.sectionLabel}>Период на валидност</Text>
         <View style={styles.periodContainer}>
           {selectedAgeGroup?.periods.map((period) => (
@@ -107,7 +107,7 @@ const AutoAssistanceScreen = () => {
           ))}
         </View>
 
-        {/* 3. Final Order Card */}
+     
         {selectedPeriod && (
           <View style={styles.summaryCard}>
             <View style={styles.summaryRow}>

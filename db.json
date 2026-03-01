@@ -1,124 +1,374 @@
 {
+  "users": [
+    {
+      "email": "test@example.com",
+      "password": "$2a$10$bOGQSrbrQb62ky.L0SxS9.3j0pgSgbZHoDN0HKQjfsJm09I1Xwv.S",
+      "id": 1
+    },
+    {
+      "email": "deadant@abv.bg",
+      "password": "$2a$10$F7kDYjaJY1EjSzdJSuWnXukO4IvLY5g1Prr2iyOy4msshCDD13Cmu",
+      "id": 2
+    }
+  ],
   "categories": [
-    { "id": 1, "name": "Motor Third-Party Liability (Civil Liability)", "price": "301,00 лв." },
-    { "id": 2, "name": "Comprehensive CASCO", "price": "335,62 лв." },
-    { "id": 3, "name": "Autoassistance (Roadside Assistance)", "price": "30,00 лв." }
+    {
+      "id": 1,
+      "name": "Motor Third-Party Liability (Civil Liability)",
+      "price": "301,00 лв."
+    },
+    {
+      "id": 2,
+      "name": "Comprehensive CASCO",
+      "price": "335,62 лв."
+    },
+    {
+      "id": 3,
+      "name": "Autoassistance (Roadside Assistance)",
+      "price": "30,00 лв."
+    }
   ],
   "civil_liability": [
-   {
+    {
       "company": "Бул Инс",
-      "one_time": { "bgn": 301.00, "eur": 153.90 },
-      "installments_2": { "total_bgn": 319.99, "total_eur": 163.61, "first_bgn": 168.32, "second_bgn": 151.69 },
-      "installments_3": { "total_bgn": 320.89, "total_eur": 164.07, "first_bgn": 118.05, "second_bgn": 101.43, "third_bgn": 101.43 },
-      "installments_4": { "total_bgn": 320.99, "total_eur": 164.12, "first_bgn": 92.73, "others_bgn": 76.10 }
+      "one_time": {
+        "bgn": 301,
+        "eur": 153.9
+      },
+      "installments_2": {
+        "total_bgn": 319.99,
+        "total_eur": 163.61,
+        "first_bgn": 168.32,
+        "second_bgn": 151.69
+      },
+      "installments_3": {
+        "total_bgn": 320.89,
+        "total_eur": 164.07,
+        "first_bgn": 118.05,
+        "second_bgn": 101.43,
+        "third_bgn": 101.43
+      },
+      "installments_4": {
+        "total_bgn": 320.99,
+        "total_eur": 164.12,
+        "first_bgn": 92.73,
+        "others_bgn": 76.1
+      }
     },
     {
       "company": "ДЗИ",
-      "one_time": { "bgn": 319.82, "eur": 163.52 },
-      "installments_2": { "total_bgn": 321.91, "total_eur": 164.59, "first_bgn": 169.28, "second_bgn": 152.65 },
+      "one_time": {
+        "bgn": 319.82,
+        "eur": 163.52
+      },
+      "installments_2": {
+        "total_bgn": 321.91,
+        "total_eur": 164.59,
+        "first_bgn": 169.28,
+        "second_bgn": 152.65
+      },
       "installments_3": null,
-      "installments_4": { "total_bgn": 323.98, "total_eur": 165.65, "first_bgn": 93.47, "others_bgn": 76.84 }
+      "installments_4": {
+        "total_bgn": 323.98,
+        "total_eur": 165.65,
+        "first_bgn": 93.47,
+        "others_bgn": 76.84
+      }
     },
     {
       "company": "Булстрад",
-      "one_time": { "bgn": 352.71, "eur": 180.34 },
-      "installments_2": { "total_bgn": 356.08, "total_eur": 182.06, "first_bgn": 186.35, "second_bgn": 169.73 },
+      "one_time": {
+        "bgn": 352.71,
+        "eur": 180.34
+      },
+      "installments_2": {
+        "total_bgn": 356.08,
+        "total_eur": 182.06,
+        "first_bgn": 186.35,
+        "second_bgn": 169.73
+      },
       "installments_3": null,
-      "installments_4": { "total_bgn": 359.44, "total_eur": 183.78, "first_bgn": 102.33, "others_bgn": 85.70 }
+      "installments_4": {
+        "total_bgn": 359.44,
+        "total_eur": 183.78,
+        "first_bgn": 102.33,
+        "others_bgn": 85.7
+      }
     },
     {
       "company": "Дженерали",
-      "one_time": { "bgn": 335.62, "eur": 171.60 },
-      "installments_2": { "total_bgn": 340.73, "total_eur": 174.21, "first_bgn": 178.67, "second_bgn": 162.04 },
+      "one_time": {
+        "bgn": 335.62,
+        "eur": 171.6
+      },
+      "installments_2": {
+        "total_bgn": 340.73,
+        "total_eur": 174.21,
+        "first_bgn": 178.67,
+        "second_bgn": 162.04
+      },
       "installments_3": null,
-      "installments_4": { "total_bgn": 340.73, "total_eur": 174.21, "first_bgn": 97.65, "others_bgn": 81.03 }
+      "installments_4": {
+        "total_bgn": 340.73,
+        "total_eur": 174.21,
+        "first_bgn": 97.65,
+        "others_bgn": 81.03
+      }
     },
     {
       "company": "ОЗК",
-      "one_time": { "bgn": 328.93, "eur": 168.18 },
-      "installments_2": { "total_bgn": 330.03, "total_eur": 168.74, "first_bgn": 173.33, "second_bgn": 156.70 },
+      "one_time": {
+        "bgn": 328.93,
+        "eur": 168.18
+      },
+      "installments_2": {
+        "total_bgn": 330.03,
+        "total_eur": 168.74,
+        "first_bgn": 173.33,
+        "second_bgn": 156.7
+      },
       "installments_3": null,
-      "installments_4": { "total_bgn": 332.22, "total_eur": 169.86, "first_bgn": 95.52, "others_bgn": 78.90 }
+      "installments_4": {
+        "total_bgn": 332.22,
+        "total_eur": 169.86,
+        "first_bgn": 95.52,
+        "others_bgn": 78.9
+      }
     },
     {
       "company": "Армеец",
-      "one_time": { "bgn": 334.13, "eur": 170.84 },
-      "installments_2": { "total_bgn": 341.04, "total_eur": 174.37, "first_bgn": 178.84, "second_bgn": 162.22 },
+      "one_time": {
+        "bgn": 334.13,
+        "eur": 170.84
+      },
+      "installments_2": {
+        "total_bgn": 341.04,
+        "total_eur": 174.37,
+        "first_bgn": 178.84,
+        "second_bgn": 162.22
+      },
       "installments_3": null,
-      "installments_4": { "total_bgn": 341.04, "total_eur": 174.37, "first_bgn": 97.73, "others_bgn": 81.11 }
+      "installments_4": {
+        "total_bgn": 341.04,
+        "total_eur": 174.37,
+        "first_bgn": 97.73,
+        "others_bgn": 81.11
+      }
     },
     {
       "company": "Уника",
-      "one_time": { "bgn": 333.84, "eur": 170.69 },
-      "installments_2": { "total_bgn": 339.96, "total_eur": 173.82, "first_bgn": 178.29, "second_bgn": 161.67 },
+      "one_time": {
+        "bgn": 333.84,
+        "eur": 170.69
+      },
+      "installments_2": {
+        "total_bgn": 339.96,
+        "total_eur": 173.82,
+        "first_bgn": 178.29,
+        "second_bgn": 161.67
+      },
       "installments_3": null,
-      "installments_4": { "total_bgn": 339.96, "total_eur": 173.82, "first_bgn": 100.45, "others_bgn": 79.84 }
+      "installments_4": {
+        "total_bgn": 339.96,
+        "total_eur": 173.82,
+        "first_bgn": 100.45,
+        "others_bgn": 79.84
+      }
     },
     {
       "company": "Лев Инс",
-      "one_time": { "bgn": 325.47, "eur": 166.41 },
-      "installments_2": { "total_bgn": 325.47, "total_eur": 166.41, "first_bgn": 171.64, "second_bgn": 153.83 },
+      "one_time": {
+        "bgn": 325.47,
+        "eur": 166.41
+      },
+      "installments_2": {
+        "total_bgn": 325.47,
+        "total_eur": 166.41,
+        "first_bgn": 171.64,
+        "second_bgn": 153.83
+      },
       "installments_3": null,
-      "installments_4": { "total_bgn": 325.47, "total_eur": 166.41, "first_bgn": 94.72, "others_bgn": 76.90 }
+      "installments_4": {
+        "total_bgn": 325.47,
+        "total_eur": 166.41,
+        "first_bgn": 94.72,
+        "others_bgn": 76.9
+      }
     },
     {
       "company": "Групама",
-      "one_time": { "bgn": 330.59, "eur": 169.03 },
-      "installments_2": { "total_bgn": 332.02, "total_eur": 169.76, "first_bgn": 174.32, "second_bgn": 157.70 },
+      "one_time": {
+        "bgn": 330.59,
+        "eur": 169.03
+      },
+      "installments_2": {
+        "total_bgn": 332.02,
+        "total_eur": 169.76,
+        "first_bgn": 174.32,
+        "second_bgn": 157.7
+      },
       "installments_3": null,
-      "installments_4": { "total_bgn": 334.80, "total_eur": 171.18, "first_bgn": 96.17, "others_bgn": 79.54 }
+      "installments_4": {
+        "total_bgn": 334.8,
+        "total_eur": 171.18,
+        "first_bgn": 96.17,
+        "others_bgn": 79.54
+      }
     },
     {
       "company": "Алианц",
-      "one_time": { "bgn": 302.27, "eur": 154.55 },
-      "installments_2": { "total_bgn": 302.27, "total_eur": 154.55, "first_bgn": 160.20, "second_bgn": 142.07 },
+      "one_time": {
+        "bgn": 302.27,
+        "eur": 154.55
+      },
+      "installments_2": {
+        "total_bgn": 302.27,
+        "total_eur": 154.55,
+        "first_bgn": 160.2,
+        "second_bgn": 142.07
+      },
       "installments_3": null,
-      "installments_4": { "total_bgn": 302.27, "total_eur": 154.55, "first_bgn": 89.17, "others_bgn": 71.04 }
+      "installments_4": {
+        "total_bgn": 302.27,
+        "total_eur": 154.55,
+        "first_bgn": 89.17,
+        "others_bgn": 71.04
+      }
     }
   ],
   "casco_config": [
-    { "id": "dzi", "company": "ДЗИ", "rate": 0.048, "min_premium": 150 },
-    { "id": "bulstrad", "company": "Булстрад", "rate": 0.052, "min_premium": 180 },
-    { "id": "allianz", "company": "Алианц", "rate": 0.055, "min_premium": 200 },
-    { "id": "levins", "company": "Лев Инс", "rate": 0.042, "min_premium": 130 }
+    {
+      "id": "dzi",
+      "company": "ДЗИ",
+      "rate": 0.048,
+      "min_premium": 150
+    },
+    {
+      "id": "bulstrad",
+      "company": "Булстрад",
+      "rate": 0.052,
+      "min_premium": 180
+    },
+    {
+      "id": "allianz",
+      "company": "Алианц",
+      "rate": 0.055,
+      "min_premium": 200
+    },
+    {
+      "id": "levins",
+      "company": "Лев Инс",
+      "rate": 0.042,
+      "min_premium": 130
+    }
   ],
   "age_groups": [
-    { "label": "Нов (0-4г.)", "multiplier": 1.0, "service": "Официален сервиз" },
-    { "label": "5-10 години", "multiplier": 1.15, "service": "Доверен сервиз" },
-    { "label": "10+ години", "multiplier": 1.30, "service": "Експертна оценка" }
+    {
+      "label": "Нов (0-4г.)",
+      "multiplier": 1,
+      "service": "Официален сервиз"
+    },
+    {
+      "label": "5-10 години",
+      "multiplier": 1.15,
+      "service": "Доверен сервиз"
+    },
+    {
+      "label": "10+ години",
+      "multiplier": 1.3,
+      "service": "Експертна оценка"
+    }
   ],
   "assistance_europe_rates": [
     {
       "age_label": "до 5 години",
       "periods": [
-        { "label": "До 15 дни", "bgn": 27.38, "eur": 14.00 },
-        { "label": "Над 15 дни до 1 месец", "bgn": 50.85, "eur": 26.00 },
-        { "label": "Над 1 месец до 3 месеца", "bgn": 148.64, "eur": 76.00 },
-        { "label": "Над 3 месеца до 6 месеца", "bgn": 285.55, "eur": 146.00 },
-        { "label": "Над 6 месеца до 1 година", "bgn": 526.12, "eur": 269.00 }
+        {
+          "label": "До 15 дни",
+          "bgn": 27.38,
+          "eur": 14
+        },
+        {
+          "label": "Над 15 дни до 1 месец",
+          "bgn": 50.85,
+          "eur": 26
+        },
+        {
+          "label": "Над 1 месец до 3 месеца",
+          "bgn": 148.64,
+          "eur": 76
+        },
+        {
+          "label": "Над 3 месеца до 6 месеца",
+          "bgn": 285.55,
+          "eur": 146
+        },
+        {
+          "label": "Над 6 месеца до 1 година",
+          "bgn": 526.12,
+          "eur": 269
+        }
       ]
     },
     {
       "age_label": "5 до 10 години",
       "periods": [
-        { "label": "До 15 дни", "bgn": 33.25, "eur": 17.00 },
-        { "label": "Над 15 дни до 1 месец", "bgn": 62.59, "eur": 32.00 },
-        { "label": "Над 1 месец до 3 месеца", "bgn": 183.85, "eur": 94.00 },
-        { "label": "Над 3 месеца до 6 месеца", "bgn": 355.96, "eur": 182.00 },
-        { "label": "Над 6 месеца до 1 година", "bgn": 666.94, "eur": 341.00 }
+        {
+          "label": "До 15 дни",
+          "bgn": 33.25,
+          "eur": 17
+        },
+        {
+          "label": "Над 15 дни до 1 месец",
+          "bgn": 62.59,
+          "eur": 32
+        },
+        {
+          "label": "Над 1 месец до 3 месеца",
+          "bgn": 183.85,
+          "eur": 94
+        },
+        {
+          "label": "Над 3 месеца до 6 месеца",
+          "bgn": 355.96,
+          "eur": 182
+        },
+        {
+          "label": "Над 6 месеца до 1 година",
+          "bgn": 666.94,
+          "eur": 341
+        }
       ]
     },
     {
       "age_label": "10 до 30 години",
       "periods": [
-        { "label": "До 15 дни", "bgn": 37.16, "eur": 19.00 },
-        { "label": "Над 15 дни до 1 месец", "bgn": 70.41, "eur": 36.00 },
-        { "label": "Над 1 месец до 3 месеца", "bgn": 207.32, "eur": 106.00 },
-        { "label": "Над 3 месеца до 6 месеца", "bgn": 402.90, "eur": 206.00 },
-        { "label": "Над 6 месеца до 1 година", "bgn": 760.82, "eur": 389.00 }
+        {
+          "label": "До 15 дни",
+          "bgn": 37.16,
+          "eur": 19
+        },
+        {
+          "label": "Над 15 дни до 1 месец",
+          "bgn": 70.41,
+          "eur": 36
+        },
+        {
+          "label": "Над 1 месец до 3 месеца",
+          "bgn": 207.32,
+          "eur": 106
+        },
+        {
+          "label": "Над 3 месеца до 6 месеца",
+          "bgn": 402.9,
+          "eur": 206
+        },
+        {
+          "label": "Над 6 месеца до 1 година",
+          "bgn": 760.82,
+          "eur": 389
+        }
       ]
     }
   ]
-  
-  
 }
