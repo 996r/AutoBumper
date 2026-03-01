@@ -4,18 +4,17 @@ import { categoryApi } from "../api/categoryApi";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRoute } from '@react-navigation/native';
 
-export default function LiabilityDetailScreen() {
+export default function LiabilityDetailScreen({ navigation }) {
   const route = useRoute();
   const { id } = route.params || {};
   const [offers, setOffers] = useState([]);
   const [loading, setLoading] = useState(true);
-   const [selectedTab, setSelectedTab] = useState('one_time'); 
+  const [selectedTab, setSelectedTab] = useState('one_time'); 
 
   useEffect(() => {
     const fetchOffers = async () => {
       try {
         const response = await categoryApi.getCategoryDetails(id);
-      
         setOffers(response.data);
       } catch (error) {
         console.error("Error fetching liability offers:", error);
@@ -29,15 +28,37 @@ export default function LiabilityDetailScreen() {
   const renderOffer = ({ item }) => {
     const paymentPlan = item[selectedTab];
 
+    const handleNavigation = () => {
+      // 1. Calculate the TOTAL price
+      const finalPrice = selectedTab === 'one_time' ? paymentPlan.bgn : paymentPlan.total_bgn;
+      
+      // 2. Calculate the FIRST payment (This was the missing piece!)
+      const firstInstallment = selectedTab === 'one_time' ? paymentPlan.bgn : paymentPlan.first_bgn;
+      
+      const planLabels = {
+        'one_time': '1 вноска',
+        'installments_2': '2 вноски',
+        'installments_4': '4 вноски'
+      };
+
+      // 3. Pass both values to the Form
+      navigation.navigate("OfferForm", { 
+        selectedOffer: {
+          company: item.company,
+          price: finalPrice,
+          firstPayment: firstInstallment, // Passed to Cart via OfferForm
+          planLabel: planLabels[selectedTab]
+        } 
+      });
+    };
+
     return (
       <View style={styles.offerCard}>
         <View style={styles.leftContent}>
           <Text style={styles.companyName}>{item.company}</Text>
-          
           {paymentPlan ? (
             <View>
               <Text style={styles.priceText}>
-                {/* Check if it's one_time (bgn) or installment (total_bgn) */}
                 {selectedTab === 'one_time' ? paymentPlan.bgn.toFixed(2) : paymentPlan.total_bgn.toFixed(2)} лв.
               </Text>
               {selectedTab !== 'one_time' && (
@@ -49,7 +70,11 @@ export default function LiabilityDetailScreen() {
           )}
         </View>
 
-        <TouchableOpacity style={[styles.selectButton, !paymentPlan && { backgroundColor: '#ccc' }]} disabled={!paymentPlan}>
+        <TouchableOpacity 
+          style={[styles.selectButton, !paymentPlan && { backgroundColor: '#ccc' }]} 
+          disabled={!paymentPlan}
+          onPress={handleNavigation}
+        >
           <Text style={styles.buttonText}>Избери</Text>
         </TouchableOpacity>
       </View>
@@ -60,7 +85,6 @@ export default function LiabilityDetailScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={['bottom', 'left', 'right']}>
-      
       <View style={styles.tabContainer}>
         {[
           { id: 'one_time', label: '1 вноска' },
@@ -79,7 +103,7 @@ export default function LiabilityDetailScreen() {
 
       <FlatList
         data={offers}
-        keyExtractor={(item) => item.company}
+        keyExtractor={(item, index) => item.company + index}
         renderItem={renderOffer}
         contentContainerStyle={{ padding: 15 }}
       />
@@ -94,7 +118,7 @@ const styles = StyleSheet.create({
   activeTab: { backgroundColor: '#007AFF' },
   tabLabel: { fontSize: 13, color: '#3A3A3C' },
   activeTabLabel: { color: '#fff', fontWeight: 'bold' },
-  offerCard: { backgroundColor: "#fff", borderRadius: 12, padding: 16, marginBottom: 12, flexDirection: "row", justifyContent: "space-between", alignItems: "center", elevation: 2 },
+  offerCard: { backgroundColor: "#fff", borderRadius: 12, padding: 16, marginBottom: 12, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
   leftContent: { flex: 1 },
   companyName: { fontSize: 17, fontWeight: "700", color: "#1C1C1E", marginBottom: 5 },
   priceText: { fontSize: 20, fontWeight: "800", color: "#007AFF" },

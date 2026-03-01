@@ -14,7 +14,6 @@ export const categoryApi = {
         return api.get(path);
     },
 
-  
     getCivilLiability: () => api.get("/civil_liability"),
     getCasco: () => api.get("/casco_config"),
     getAgeGroups: () => api.get("/age_groups"),
@@ -25,3 +24,14 @@ export const authApi = {
   register: (userData) => api.post("/register", userData),
   login: (credentials) => api.post("/login", credentials),
 };
+
+export const orderService = {
+ 
+  submitOrder: (orderData, token) => {
+    return api.post("/orders", orderData, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+  } 
+}; 
