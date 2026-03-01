@@ -11,6 +11,7 @@ import CascoDetailScreen from "../screens/CascoDetailScreen";
 import CartScreen from "../screens/CartScreen";
 import { useUser } from "../context/UserContext"; 
 import { Text, StyleSheet, TouchableOpacity, ActivityIndicator, View } from "react-native";
+import ProfileScreen from "../screens/ProfileScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -43,6 +44,7 @@ export default function HomeStackNavigator() {
           <Stack.Screen name="Casco" component={CascoDetailScreen} options={{ title: "Full CASCO" }} />
           <Stack.Screen name="Assistance" component={AutoAssistanceScreen} options={{ title: "Auto Assistance" }} />
           <Stack.Screen name= "Cart" component={CartScreen} options={{title:"Cart"}} />
+           <Stack.Screen name= "Profile" component={ProfileScreen} options={{title:"Profile"}} />
           <Stack.Screen 
   name="OfferForm" 
   component={OfferFormScreen} 

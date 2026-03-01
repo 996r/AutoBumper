@@ -32,6 +32,11 @@ export const UserProvider = ({ children }) => {
     await AsyncStorage.setItem('userEmail', userData.email);
   };
 
+  const updateUser = async (newData) => {
+    setUser(newData);
+    await AsyncStorage.setItem('@user_data', JSON.stringify(newData));
+  };
+
   const logout = async () => {
     setUser(null);
     await AsyncStorage.removeItem('userToken');
@@ -39,7 +44,7 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={{ user, login, logout, loading }}>
+    <UserContext.Provider value={{ user, login, logout, loading, updateUser }}>
       {children}
     </UserContext.Provider>
   );
