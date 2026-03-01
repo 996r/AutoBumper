@@ -4,19 +4,18 @@ import { NavigationContainer } from '@react-navigation/native';
 import { UserProvider } from './context/UserContext';
 import RootNavigator from './navigation/RootNavigator';
 import { CartProvider } from './context/CartContext';
+import TabNavigator from './navigation/TabNavigator';
 
 export default function App() {
   
   
   return (
-    <SafeAreaProvider>
-      <UserProvider>
-        <CartProvider>
+   <UserProvider>
+      <CartProvider>
         <NavigationContainer>
-          <RootNavigator />
+          <TabNavigator />
         </NavigationContainer>
-        </CartProvider>
-      </UserProvider>
-    </SafeAreaProvider>
+      </CartProvider>
+    </UserProvider>
   );
 }

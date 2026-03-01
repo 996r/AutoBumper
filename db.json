@@ -9,6 +9,11 @@
       "email": "deadant@abv.bg",
       "password": "$2a$10$F7kDYjaJY1EjSzdJSuWnXukO4IvLY5g1Prr2iyOy4msshCDD13Cmu",
       "id": 2
+    },
+    {
+      "email": "de@abv.bg",
+      "password": "$2a$10$0KQ/xvggwzWAYeWOFACsD.hXVcHWzrPjoDw4fwFbIwX8F/DJlxGbC",
+      "id": 3
     }
   ],
   "orders": [
@@ -77,6 +82,26 @@
       "totalAmount": 636.62,
       "date": "2026-03-01T11:32:41.930Z",
       "id": 5
+    },
+    {
+      "userId": 2,
+      "items": [
+        {
+          "firstName": "Ivaylo",
+          "lastName": "Petrov",
+          "phone": "0896820697",
+          "company": "Бул Инс",
+          "price": 320.99,
+          "firstPayment": 92.73,
+          "plan": "4 вноски",
+          "cartId": 1772374558647
+        }
+      ],
+      "totalOrderValue": 320.99,
+      "dueToday": 92.73,
+      "status": "pending",
+      "createdAt": "2026-03-01T14:16:02.582Z",
+      "id": 6
     }
   ],
   "categories": [

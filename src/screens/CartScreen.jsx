@@ -6,9 +6,9 @@ import {
   StyleSheet, 
   TouchableOpacity, 
   Alert, 
-  SafeAreaView 
-} from 'react-native';
+   } from 'react-native';
 import { useCart } from '../context/CartContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useUser } from '../context/UserContext';
 import { orderService } from '../api/categoryApi';
 import { Ionicons } from '@expo/vector-icons';
@@ -53,7 +53,7 @@ const totalDueToday = cartItems.reduce((sum, item) => sum + (item.firstPayment |
     const isTwoInstallments = item.plan === '2 вноски';
     const isFourInstallments = item.plan === '4 вноски';
 
-    // Installment Breakdown Logic
+    
     let mathString = "";
     if (isTwoInstallments) {
       const remaining = item.price - item.firstPayment;

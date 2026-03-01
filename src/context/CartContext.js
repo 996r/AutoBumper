@@ -7,7 +7,7 @@ export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // 1. Load cart from storage on startup
+
   useEffect(() => {
     const loadCart = async () => {
       try {
@@ -24,10 +24,10 @@ export const CartProvider = ({ children }) => {
     loadCart();
   }, []);
 
-  // 2. Save cart to storage whenever cartItems change
+  
   useEffect(() => {
     const saveCart = async () => {
-      if (isLoaded) { // Only save after the initial load is complete
+      if (isLoaded) { 
         try {
           await AsyncStorage.setItem('@user_cart', JSON.stringify(cartItems));
         } catch (e) {

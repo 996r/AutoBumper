@@ -23,27 +23,27 @@ export default function OfferFormScreen({ route, navigation }) {
   });
 
   const handleAddToCart = () => {
-    // 1. Validation
+    
     if (!formData.firstName.trim() || !formData.lastName.trim() || !formData.phone.trim()) {
       Alert.alert("Грешка", "Моля, попълнете всички полета.");
       return;
     }
 
-    // 2. Create the item object - CRITICAL STEP
+    
     const cartItem = {
       firstName: formData.firstName.trim(),
       lastName: formData.lastName.trim(),
       phone: formData.phone.trim(),
       company: selectedOffer.company,
-      price: selectedOffer.price,          // Total Price
-      firstPayment: selectedOffer.firstPayment, // Today's Payment (This MUST exist!)
+      price: selectedOffer.price,          
+      firstPayment: selectedOffer.firstPayment,
       plan: selectedOffer.planLabel,
     };
 
-    // 3. Add to Cart
+    
     addToCart(cartItem);
 
-    // 4. Success feedback
+    
     Alert.alert(
       "Успех", 
       "Офертата е добавена в количката.",
@@ -61,7 +61,7 @@ export default function OfferFormScreen({ route, navigation }) {
           <Text style={styles.summaryTitle}>Избрана оферта</Text>
           <Text style={styles.summaryCompany}>{selectedOffer.company}</Text>
           <Text style={styles.summaryPrice}>
-            {/* Safe check for UI display */}
+            
             {(selectedOffer.price || 0).toFixed(2)} лв. ({selectedOffer.planLabel})
           </Text>
         </View>

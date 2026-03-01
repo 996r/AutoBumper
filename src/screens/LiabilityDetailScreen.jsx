@@ -29,10 +29,9 @@ export default function LiabilityDetailScreen({ navigation }) {
     const paymentPlan = item[selectedTab];
 
     const handleNavigation = () => {
-      // 1. Calculate the TOTAL price
+      
       const finalPrice = selectedTab === 'one_time' ? paymentPlan.bgn : paymentPlan.total_bgn;
       
-      // 2. Calculate the FIRST payment (This was the missing piece!)
       const firstInstallment = selectedTab === 'one_time' ? paymentPlan.bgn : paymentPlan.first_bgn;
       
       const planLabels = {
@@ -41,12 +40,12 @@ export default function LiabilityDetailScreen({ navigation }) {
         'installments_4': '4 вноски'
       };
 
-      // 3. Pass both values to the Form
+      
       navigation.navigate("OfferForm", { 
         selectedOffer: {
           company: item.company,
           price: finalPrice,
-          firstPayment: firstInstallment, // Passed to Cart via OfferForm
+          firstPayment: firstInstallment, 
           planLabel: planLabels[selectedTab]
         } 
       });
