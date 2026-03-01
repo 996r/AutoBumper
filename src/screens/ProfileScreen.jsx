@@ -27,7 +27,6 @@ export default function ProfileScreen() {
     carYear: "",
   });
 
-  // Load profile data on screen mount
   useEffect(() => {
     if (user?.id) {
       loadProfileData();
@@ -50,7 +49,7 @@ export default function ProfileScreen() {
   };
 
   const handleSave = async () => {
-  // 1. Safety check: make sure we have a logged-in user ID
+  
   if (!user?.id) {
     Alert.alert("Error", "You must be logged in to save a profile.");
     return;
@@ -60,17 +59,17 @@ export default function ProfileScreen() {
   try {
     const profileData = { 
       ...profile, 
-      userId: user.id // Force the current user's ID into the object
+      userId: user.id 
     };
 
     if (profile.id) {
-      // UPDATE existing
+      
       await userApi.updateProfile(profile.id, profileData);
       Alert.alert("Success", "Profile updated!");
     } else {
-      // CREATE new
+      
       const res = await userApi.createProfile(profileData);
-      // IMPORTANT: Update local state with the ID returned by the server
+      
       setProfile(res.data); 
       Alert.alert("Success", "Profile created!");
     }
