@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import {
   View,
   Text,
@@ -27,26 +27,46 @@ export default function ProfileScreen() {
     carYear: "",
   });
 
+  
+
   useEffect(() => {
-    if (user?.id) {
-      loadProfileData();
-      
+    
+    if (user === null) {
+      setLoading(true);
+      return;
     }
-  }, [user?.id]);
+
+    console.log(user)
+    
+    if (user && user.id) {
+          loadProfileData();
+    } else {
+      
+      setLoading(false);
+    }
+  }, [user]);
 
   const loadProfileData = async () => {
     try {
+      setLoading(true);
+  
       const response = await userApi.getProfileByUserId(user.id);
-     
+      
       if (response.data && response.data.length > 0) {
-        setProfile(response.data[0]); 
+        setProfile(response.data[0]);
+      } else {
+  
+        setProfile(prev => ({ ...prev, userId: user.id }));
       }
     } catch (error) {
-      console.error("Error fetching profile from db.json:", error);
+      console.error("Profile Load Error:", error);
+      Alert.alert("Грешка", "Неуспешно зареждане на профила.");
     } finally {
       setLoading(false);
     }
   };
+
+  
 
   const handleSave = async () => {
   

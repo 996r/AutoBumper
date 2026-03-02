@@ -23,7 +23,7 @@
       "phone": "0896820697",
       "carMake": "Bmw",
       "carModel": "318is",
-      "carYear": "1992",
+      "carYear": "1991",
       "userId": 2,
       "id": 1
     }
@@ -114,6 +114,85 @@
       "status": "pending",
       "createdAt": "2026-03-01T14:16:02.582Z",
       "id": 6
+    },
+    {
+      "userId": 2,
+      "items": [
+        {
+          "firstName": "Ivaylo",
+          "lastName": "Petrov",
+          "phone": "0896820697",
+          "userId": 2,
+          "company": "Алианц",
+          "price": 302.27,
+          "firstPayment": 89.17,
+          "plan": "4 вноски",
+          "type": "Liability",
+          "cartId": 1772380592459
+        }
+      ],
+      "totalOrderValue": 302.27,
+      "dueToday": 89.17,
+      "status": "pending",
+      "createdAt": "2026-03-01T15:56:44.174Z",
+      "id": 7
+    },
+    {
+      "items": [
+        {
+          "cartId": 1772382118008,
+          "firstName": "Ivaylo",
+          "lastName": "Petrov",
+          "phone": "0896820697",
+          "company": "Булстрад",
+          "price": 202.8,
+          "firstPayment": 53.23500000000001,
+          "plan": "4 вноски",
+          "type": "Casco",
+          "carValue": "3000"
+        }
+      ],
+      "totalOrderValue": 202.8,
+      "dueToday": 53.23500000000001,
+      "status": "pending",
+      "createdAt": "2026-03-01T16:22:06.525Z",
+      "id": 8
+    },
+    {
+      "userId": 2,
+      "items": [
+        {
+          "cartId": 1772385306238,
+          "userId": 2,
+          "firstName": "Ivaylo",
+          "lastName": "Petrov",
+          "phone": "0896820697",
+          "company": "Бул Инс",
+          "price": 320.99,
+          "firstPayment": 92.73,
+          "plan": "4 вноски",
+          "type": "Liability",
+          "carValue": null
+        },
+        {
+          "cartId": 1772385457723,
+          "userId": 2,
+          "firstName": "Ivaylo",
+          "lastName": "Petrov",
+          "phone": "0896820697",
+          "company": "ДЗИ",
+          "price": 1104,
+          "firstPayment": 289.8,
+          "plan": "4 вноски",
+          "type": "Casco",
+          "carValue": "20000"
+        }
+      ],
+      "totalBGN": "2480.23",
+      "totalEUR": "1268.12",
+      "status": "pending",
+      "createdAt": "2026-03-01T17:30:52.331Z",
+      "id": 9
     }
   ],
   "categories": [

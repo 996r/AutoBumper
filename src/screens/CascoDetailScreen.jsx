@@ -8,13 +8,13 @@ import {
   TouchableOpacity, 
   ActivityIndicator,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  ScrollView
 } from "react-native";
 import { categoryApi } from "../api/categoryApi";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function CascoDetailScreen() {
-  
+export default function CascoDetailScreen({ navigation }) {
   const [carValue, setCarValue] = useState("");
   const [rates, setRates] = useState([]); 
   const [ageGroups, setAgeGroups] = useState([]);
@@ -27,20 +27,17 @@ export default function CascoDetailScreen() {
     const loadConfig = async () => {
       try {
         setLoading(true);
-  
         const [configRes, ageRes] = await Promise.all([
           categoryApi.getCasco(),
           categoryApi.getAgeGroups()
         ]);
 
-  
         const ratesData = configRes.data || [];
         const agesData = ageRes.data || [];
 
         setRates(ratesData);
         setAgeGroups(agesData);
         
-  
         if (agesData.length > 0) {
           setSelectedAge(agesData[0]);
         }
@@ -57,18 +54,16 @@ export default function CascoDetailScreen() {
   useEffect(() => {
     const value = parseFloat(carValue);
 
-  
     if (!rates || !Array.isArray(rates) || rates.length === 0 || isNaN(value) || value < 1000) {
       setOffers([]);
       return;
     }
 
     const calculatedResults = rates.map((item) => {
-  
       const multiplier = selectedAge ? selectedAge.multiplier : 1.0;
       const basePremium = value * item.rate * multiplier;
       
-  
+      
       const finalPremium = Math.max(basePremium, item.min_premium);
 
       return {
@@ -83,6 +78,20 @@ export default function CascoDetailScreen() {
   }, [carValue, selectedAge, rates]);
 
   
+  const handleSelectOffer = (item) => {
+    navigation.navigate("OfferForm", {
+      selectedOffer: {
+        company: item.company,
+        price: item.totalPrice,
+        firstPayment: item.installments_4, 
+        planLabel: "4 вноски",
+        type: "Casco", 
+        carValue: carValue,
+        serviceType: item.serviceType
+      }
+    });
+  };
+
   if (loading) {
     return (
       <View style={styles.center}>
@@ -92,12 +101,11 @@ export default function CascoDetailScreen() {
     );
   }
 
-  
   return (
     <SafeAreaView style={styles.container} edges={['bottom', 'left', 'right']}>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{flex: 1}}>
         
-  
+       
         <View style={styles.headerCard}>
           <Text style={styles.label}>Стойност на автомобила (EUR)</Text>
           <TextInput
@@ -131,14 +139,16 @@ export default function CascoDetailScreen() {
           </View>
         </View>
 
-  
+       
         <FlatList
           data={offers}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item, index) => item.id?.toString() || index.toString()}
           contentContainerStyle={{ padding: 15, paddingBottom: 30 }}
           ListEmptyComponent={
             carValue.length > 0 && parseFloat(carValue) < 1000 ? (
-              <Text style={styles.emptyText}>Минималната сума за Каско е 1,000 EUR</Text>
+              <View style={styles.emptyContainer}>
+                <Text style={styles.emptyText}>Минималната сума за Каско е 1,000 EUR</Text>
+              </View>
             ) : null
           }
           renderItem={({ item }) => (
@@ -150,17 +160,21 @@ export default function CascoDetailScreen() {
                 </View>
                 <View style={{ alignItems: 'flex-end' }}>
                   <Text style={styles.priceText}>{item.totalPrice.toFixed(2)} €</Text>
-                  <Text style={styles.yearText}>за 1 година</Text>
+                  <Text style={styles.yearText}>годишна премия</Text>
                 </View>
               </View>
               
               <View style={styles.divider} />
               
               <View style={styles.cardFooter}>
-                <Text style={styles.installmentText}>
-                  Вноски: <Text style={{fontWeight: '700'}}>4 x {item.installments_4.toFixed(2)} €</Text>
-                </Text>
-                <TouchableOpacity style={styles.buyButton}>
+                <View>
+                  <Text style={styles.installmentTitle}>На изплащане:</Text>
+                  <Text style={styles.installmentValue}>4 x {item.installments_4.toFixed(2)} €</Text>
+                </View>
+                <TouchableOpacity 
+                  style={styles.buyButton}
+                  onPress={() => handleSelectOffer(item)}
+                >
                   <Text style={styles.buyButtonText}>Избери</Text>
                 </TouchableOpacity>
               </View>
@@ -188,7 +202,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     zIndex: 10
   },
-  label: { fontSize: 13, fontWeight: '700', color: '#8E8E93', marginBottom: 8, textTransform: 'uppercase' },
+  label: { fontSize: 11, fontWeight: '700', color: '#8E8E93', marginBottom: 8, textTransform: 'uppercase' },
   input: { 
     backgroundColor: '#F2F2F7', 
     padding: 16, 
@@ -210,8 +224,10 @@ const styles = StyleSheet.create({
   yearText: { fontSize: 11, color: '#8E8E93' },
   divider: { height: 1, backgroundColor: '#F2F2F7', marginVertical: 15 },
   cardFooter: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  installmentText: { fontSize: 13, color: '#3A3A3C' },
-  buyButton: { backgroundColor: '#007AFF', paddingHorizontal: 20, paddingVertical: 10, borderRadius: 10 },
-  buyButtonText: { color: '#fff', fontWeight: '700' },
-  emptyText: { textAlign: 'center', marginTop: 30, color: '#FF3B30', fontWeight: '600' }
+  installmentTitle: { fontSize: 11, color: '#8E8E93', textTransform: 'uppercase' },
+  installmentValue: { fontSize: 15, fontWeight: '700', color: '#3A3A3C' },
+  buyButton: { backgroundColor: '#007AFF', paddingHorizontal: 25, paddingVertical: 12, borderRadius: 12 },
+  buyButtonText: { color: '#fff', fontWeight: 'bold', fontSize: 15 },
+  emptyContainer: { padding: 40, alignItems: 'center' },
+  emptyText: { textAlign: 'center', color: '#FF3B30', fontWeight: '600', fontSize: 14 }
 });

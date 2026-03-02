@@ -8,14 +8,20 @@ export const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   
-  useEffect(() => {
+useEffect(() => {
     const loadStorageData = async () => {
       try {
         const storedEmail = await AsyncStorage.getItem('userEmail');
         const token = await AsyncStorage.getItem('userToken');
+        const storedId = await AsyncStorage.getItem('userId'); 
         
-        if (storedEmail && token) {
-          setUser({ email: storedEmail, token });
+        if (storedEmail && token && storedId) {
+          
+          setUser({ 
+            email: storedEmail, 
+            token: token, 
+            id: Number(storedId) 
+          });
         }
       } catch (e) {
         console.error("Failed to load user from storage", e);
@@ -28,8 +34,10 @@ export const UserProvider = ({ children }) => {
 
   const login = async (userData) => {
     setUser(userData);
+    
     await AsyncStorage.setItem('userToken', userData.token);
     await AsyncStorage.setItem('userEmail', userData.email);
+    await AsyncStorage.setItem('userId', String(userData.id)); 
   };
 
   const updateUser = async (newData) => {
@@ -41,6 +49,8 @@ export const UserProvider = ({ children }) => {
     setUser(null);
     await AsyncStorage.removeItem('userToken');
     await AsyncStorage.removeItem('userEmail');
+    await AsyncStorage.removeItem('userId');
+  
   };
 
   return (
