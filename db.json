@@ -6,16 +6,6 @@
       "id": 1
     },
     {
-      "email": "deadant@abv.bg",
-      "password": "$2a$10$F7kDYjaJY1EjSzdJSuWnXukO4IvLY5g1Prr2iyOy4msshCDD13Cmu",
-      "id": 2
-    },
-    {
-      "email": "de@abv.bg",
-      "password": "$2a$10$0KQ/xvggwzWAYeWOFACsD.hXVcHWzrPjoDw4fwFbIwX8F/DJlxGbC",
-      "id": 3
-    },
-    {
       "email": "ivo@gmail.com",
       "password": "$2a$10$GB3q3JZhFinOZ9gNvTrrBOsyXQ3clP1D3etMVjM83eEN46GJG3dKu",
       "id": 4
@@ -48,26 +38,6 @@
   ],
   "profiles": [
     {
-      "firstName": "Ivaylo ",
-      "lastName": "Petrov ",
-      "phone": "0896820697",
-      "carMake": "Bmw",
-      "carModel": "125i",
-      "carYear": "1991",
-      "userId": 2,
-      "id": 1
-    },
-    {
-      "firstName": "Petyr",
-      "lastName": "Petrov",
-      "phone": "0889564231",
-      "carMake": "Vw",
-      "carModel": "Golf",
-      "carYear": "2010",
-      "userId": 4,
-      "id": 2
-    },
-    {
       "firstName": "Ivan",
       "lastName": "Ivanov",
       "phone": "0886820461",
@@ -76,27 +46,19 @@
       "carYear": "2015",
       "userId": 5,
       "id": 3
+    },
+    {
+      "firstName": "Peter",
+      "lastName": "Petrov ",
+      "phone": "0889235647",
+      "carMake": "Mercedes ",
+      "carModel": "Sprinter",
+      "carYear": "2005",
+      "userId": 6,
+      "id": 4
     }
   ],
   "orders": [
-    {
-      "firstName": "Ivaylo ",
-      "lastName": "Petrov ",
-      "phone": "0896820697",
-      "company": "Бул Инс",
-      "userId": 2,
-      "createdAt": "2026-03-01T10:06:36.293Z",
-      "id": 1
-    },
-    {
-      "firstName": "Ivaylo ",
-      "lastName": "Petrov ",
-      "phone": "0896820697",
-      "company": "ОЗК",
-      "userId": 2,
-      "createdAt": "2026-03-01T10:08:08.541Z",
-      "id": 2
-    },
     {
       "firstName": "Ivaylo ",
       "lastName": "Petrov",
@@ -106,17 +68,6 @@
       "plan": "4 вноски",
       "createdAt": "2026-03-01T10:14:40.724Z",
       "id": 3
-    },
-    {
-      "firstName": "Ivaylo ",
-      "lastName": "Petrov ",
-      "phone": "0896820697",
-      "company": "Бул Инс",
-      "totalPrice": 319.99,
-      "plan": "2 вноски",
-      "userId": 2,
-      "createdAt": "2026-03-01T11:24:29.571Z",
-      "id": 4
     },
     {
       "items": [
@@ -146,48 +97,6 @@
       "id": 5
     },
     {
-      "userId": 2,
-      "items": [
-        {
-          "firstName": "Ivaylo",
-          "lastName": "Petrov",
-          "phone": "0896820697",
-          "company": "Бул Инс",
-          "price": 320.99,
-          "firstPayment": 92.73,
-          "plan": "4 вноски",
-          "cartId": 1772374558647
-        }
-      ],
-      "totalOrderValue": 320.99,
-      "dueToday": 92.73,
-      "status": "pending",
-      "createdAt": "2026-03-01T14:16:02.582Z",
-      "id": 6
-    },
-    {
-      "userId": 2,
-      "items": [
-        {
-          "firstName": "Ivaylo",
-          "lastName": "Petrov",
-          "phone": "0896820697",
-          "userId": 2,
-          "company": "Алианц",
-          "price": 302.27,
-          "firstPayment": 89.17,
-          "plan": "4 вноски",
-          "type": "Liability",
-          "cartId": 1772380592459
-        }
-      ],
-      "totalOrderValue": 302.27,
-      "dueToday": 89.17,
-      "status": "pending",
-      "createdAt": "2026-03-01T15:56:44.174Z",
-      "id": 7
-    },
-    {
       "items": [
         {
           "cartId": 1772382118008,
@@ -207,65 +116,6 @@
       "status": "pending",
       "createdAt": "2026-03-01T16:22:06.525Z",
       "id": 8
-    },
-    {
-      "userId": 2,
-      "items": [
-        {
-          "cartId": 1772385306238,
-          "userId": 2,
-          "firstName": "Ivaylo",
-          "lastName": "Petrov",
-          "phone": "0896820697",
-          "company": "Бул Инс",
-          "price": 320.99,
-          "firstPayment": 92.73,
-          "plan": "4 вноски",
-          "type": "Liability",
-          "carValue": null
-        },
-        {
-          "cartId": 1772385457723,
-          "userId": 2,
-          "firstName": "Ivaylo",
-          "lastName": "Petrov",
-          "phone": "0896820697",
-          "company": "ДЗИ",
-          "price": 1104,
-          "firstPayment": 289.8,
-          "plan": "4 вноски",
-          "type": "Casco",
-          "carValue": "20000"
-        }
-      ],
-      "totalBGN": "2480.23",
-      "totalEUR": "1268.12",
-      "status": "pending",
-      "createdAt": "2026-03-01T17:30:52.331Z",
-      "id": 9
-    },
-    {
-      "userId": 2,
-      "items": [
-        {
-          "cartId": 1772521703327,
-          "userId": 2,
-          "firstName": "Ivaylo",
-          "lastName": "Petrov",
-          "phone": "0896820697",
-          "company": "Assistance Europe",
-          "price": 62.59,
-          "firstPayment": 62.59,
-          "plan": "1 вноска",
-          "type": "Assistance",
-          "carValue": null
-        }
-      ],
-      "totalBGN": "62.59",
-      "totalEUR": "32.00",
-      "status": "pending",
-      "createdAt": "2026-03-03T07:08:27.695Z",
-      "id": 10
     },
     {
       "userId": 4,

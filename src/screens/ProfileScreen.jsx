@@ -12,12 +12,12 @@ import {
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { userApi } from "../api/categoryApi";
+import { userApi, authApi } from "../api/categoryApi";
 import { useUser } from "../context/UserContext";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function ProfileScreen() {
-  const { user } = useUser();
+  const { user, setUser } = useUser(); 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
@@ -35,25 +35,13 @@ export default function ProfileScreen() {
     if (user && user.id) {
       loadProfileData();
       loadStoredImage();
-    } else {
-      setProfile({
-        firstName: "",
-        lastName: "",
-        phone: "",
-        carMake: "",
-        carModel: "",
-        carYear: "",
-      });
-      setProfileImage(null);
     }
   }, [user]);
 
   const loadStoredImage = async () => {
     try {
       const savedImage = await AsyncStorage.getItem(`profile_pic_${user.id}`);
-      if (savedImage) {
-        setProfileImage(savedImage);
-      }
+      if (savedImage) setProfileImage(savedImage);
     } catch (e) {
       console.log("Error loading image", e);
     }
@@ -75,7 +63,6 @@ export default function ProfileScreen() {
     if (!result.canceled) {
       const uri = result.assets[0].uri;
       setProfileImage(uri);
-
       await AsyncStorage.setItem(`profile_pic_${user.id}`, uri);
     }
   };
@@ -115,6 +102,46 @@ export default function ProfileScreen() {
     }
   };
 
+  const handleDeleteProfile = () => {
+  Alert.alert(
+    "ИЗТРИВАНЕ НА АКАУНТ",
+    "Това ще изтрие перманентно вашия профил и потребителски акаунт. Сигурни ли сте?",
+    [
+      { text: "Отказ", style: "cancel" },
+      { 
+        text: "ИЗТРИЙ ВСИЧКО", 
+        style: "destructive", 
+        onPress: async () => {
+          try {
+            setSaving(true);
+            
+            if (profile.id) {
+              await userApi.deleteProfile(profile.id);
+            }
+
+            await authApi.deleteUser(user.id);
+
+            await AsyncStorage.multiRemove([
+              `profile_pic_${user.id}`,
+              "userToken",
+              "userId"
+            ]);
+
+            setUser(null); 
+            
+            Alert.alert("Сбогом", "Акаунтът ви беше изтрит успешно.");
+          } catch (error) {
+            console.error("Account deletion error:", error);
+            Alert.alert("Грешка", "Възникна проблем при изтриването на акаунта.");
+          } finally {
+            setSaving(false);
+          }
+        } 
+      },
+    ]
+  );
+};
+
   if (loading) {
     return (
       <View style={styles.center}>
@@ -143,7 +170,6 @@ export default function ProfileScreen() {
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Лична Информация</Text>
-
         <Text style={styles.label}>Име</Text>
         <TextInput
           style={styles.input}
@@ -151,7 +177,6 @@ export default function ProfileScreen() {
           onChangeText={(t) => setProfile({ ...profile, firstName: t })}
           placeholder="Георги"
         />
-
         <Text style={styles.label}>Фамилия</Text>
         <TextInput
           style={styles.input}
@@ -159,7 +184,6 @@ export default function ProfileScreen() {
           onChangeText={(t) => setProfile({ ...profile, lastName: t })}
           placeholder="Иванов"
         />
-
         <Text style={styles.label}>Телефон</Text>
         <TextInput
           style={styles.input}
@@ -172,7 +196,6 @@ export default function ProfileScreen() {
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Данни за Колата</Text>
-
         <Text style={styles.label}>Марка</Text>
         <TextInput
           style={styles.input}
@@ -180,7 +203,6 @@ export default function ProfileScreen() {
           onChangeText={(t) => setProfile({ ...profile, carMake: t })}
           placeholder="напр. Audi"
         />
-
         <Text style={styles.label}>Модел</Text>
         <TextInput
           style={styles.input}
@@ -188,7 +210,6 @@ export default function ProfileScreen() {
           onChangeText={(t) => setProfile({ ...profile, carModel: t })}
           placeholder="напр. A4"
         />
-
         <Text style={styles.label}>Година</Text>
         <TextInput
           style={styles.input}
@@ -207,6 +228,15 @@ export default function ProfileScreen() {
         <Text style={styles.saveBtnText}>
           {saving ? "ЗАПАЗВАНЕ..." : "ЗАПАЗИ ПРОФИЛА"}
         </Text>
+      </TouchableOpacity>
+
+      {/* DELETE BUTTON */}
+      <TouchableOpacity
+        style={styles.deleteBtn}
+        onPress={handleDeleteProfile}
+        disabled={saving}
+      >
+        <Text style={styles.deleteBtnText}>ИЗТРИЙ ПРОФИЛА И ИЗЛЕЗ</Text>
       </TouchableOpacity>
 
       <View style={{ height: 40 }} />
@@ -232,12 +262,7 @@ const styles = StyleSheet.create({
   },
   profileImage: { width: 112, height: 112, borderRadius: 56 },
   imagePlaceholder: { alignItems: "center" },
-  imageHint: {
-    marginTop: 10,
-    color: "#8E8E93",
-    fontSize: 12,
-    fontWeight: "500",
-  },
+  imageHint: { marginTop: 10, color: "#8E8E93", fontSize: 12, fontWeight: "500" },
   editIconBadge: {
     position: "absolute",
     bottom: 0,
@@ -261,36 +286,11 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 2,
   },
-  sectionTitle: {
-    fontSize: 17,
-    fontWeight: "800",
-    color: "#007AFF",
-    marginBottom: 15,
-  },
-  label: {
-    fontSize: 11,
-    color: "#8E8E93",
-    textTransform: "uppercase",
-    marginBottom: 4,
-    fontWeight: "700",
-  },
-  input: {
-    borderBottomWidth: 1,
-    borderBottomColor: "#F2F2F7",
-    paddingVertical: 8,
-    marginBottom: 15,
-    fontSize: 16,
-    color: "#1C1C1E",
-  },
-  saveBtn: {
-    backgroundColor: "#007AFF",
-    padding: 18,
-    borderRadius: 14,
-    alignItems: "center",
-    shadowColor: "#007AFF",
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    elevation: 5,
-  },
+  sectionTitle: { fontSize: 17, fontWeight: "800", color: "#007AFF", marginBottom: 15 },
+  label: { fontSize: 11, color: "#8E8E93", textTransform: "uppercase", marginBottom: 4, fontWeight: "700" },
+  input: { borderBottomWidth: 1, borderBottomColor: "#F2F2F7", paddingVertical: 8, marginBottom: 15, fontSize: 16, color: "#1C1C1E" },
+  saveBtn: { backgroundColor: "#007AFF", padding: 18, borderRadius: 14, alignItems: "center", elevation: 5 },
   saveBtnText: { color: "#fff", fontWeight: "bold", fontSize: 16 },
+  deleteBtn: { marginTop: 20, padding: 10, alignItems: "center" },
+  deleteBtnText: { color: "#FF3B30", fontWeight: "700", fontSize: 14 },
 });

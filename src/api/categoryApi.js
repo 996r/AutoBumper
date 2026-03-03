@@ -23,6 +23,7 @@ export const categoryApi = {
 export const authApi = {
   register: (userData) => api.post("/register", userData),
   login: (credentials) => api.post("/login", credentials),
+  deleteUser: (userId) => api.delete(`/users/${userId}`),
 };
 
 export const orderService = {
@@ -41,4 +42,5 @@ export const userApi = {
   getProfileByUserId: (userId) => api.get(`/profiles?userId=${userId}`),
     updateProfile: (profileId, data) => api.put(`/profiles/${profileId}`, data),
         createProfile: (data) => api.post(`/profiles`, data),
+        deleteProfile: (profileId) => api.delete(`/profiles/${profileId}`),
 };
