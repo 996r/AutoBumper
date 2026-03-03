@@ -14,6 +14,11 @@
       "email": "de@abv.bg",
       "password": "$2a$10$0KQ/xvggwzWAYeWOFACsD.hXVcHWzrPjoDw4fwFbIwX8F/DJlxGbC",
       "id": 3
+    },
+    {
+      "email": "ivo@gmail.com",
+      "password": "$2a$10$GB3q3JZhFinOZ9gNvTrrBOsyXQ3clP1D3etMVjM83eEN46GJG3dKu",
+      "id": 4
     }
   ],
   "profiles": [
@@ -22,10 +27,20 @@
       "lastName": "Petrov ",
       "phone": "0896820697",
       "carMake": "Bmw",
-      "carModel": "318is",
+      "carModel": "125i",
       "carYear": "1991",
       "userId": 2,
       "id": 1
+    },
+    {
+      "firstName": "Petyr",
+      "lastName": "Petrov",
+      "phone": "0889564231",
+      "carMake": "Vw",
+      "carModel": "Golf",
+      "carYear": "2010",
+      "userId": 4,
+      "id": 2
     }
   ],
   "orders": [
@@ -193,6 +208,77 @@
       "status": "pending",
       "createdAt": "2026-03-01T17:30:52.331Z",
       "id": 9
+    },
+    {
+      "userId": 2,
+      "items": [
+        {
+          "cartId": 1772521703327,
+          "userId": 2,
+          "firstName": "Ivaylo",
+          "lastName": "Petrov",
+          "phone": "0896820697",
+          "company": "Assistance Europe",
+          "price": 62.59,
+          "firstPayment": 62.59,
+          "plan": "1 вноска",
+          "type": "Assistance",
+          "carValue": null
+        }
+      ],
+      "totalBGN": "62.59",
+      "totalEUR": "32.00",
+      "status": "pending",
+      "createdAt": "2026-03-03T07:08:27.695Z",
+      "id": 10
+    },
+    {
+      "userId": 4,
+      "items": [
+        {
+          "cartId": 1772524044990,
+          "userId": 4,
+          "firstName": "Petyr",
+          "lastName": "Petrov",
+          "phone": "0889564231",
+          "company": "Бул Инс",
+          "price": 319.99,
+          "firstPayment": 168.32,
+          "plan": "2 вноски",
+          "type": "Liability",
+          "carValue": null
+        }
+      ],
+      "totalBGN": "319.99",
+      "totalEUR": "163.61",
+      "status": "pending",
+      "createdAt": "2026-03-03T07:47:32.152Z",
+      "id": 11
+    },
+    {
+      "userId": 4,
+      "items": [
+        {
+          "cartId": 1772524769806,
+          "userId": 2,
+          "firstName": "Ivaylo",
+          "lastName": "Petrov",
+          "phone": "0896820697",
+          "company": "Бул Инс",
+          "price": 319.99,
+          "firstPayment": 168.32,
+          "plan": "2 вноски",
+          "type": "Liability",
+          "carValue": null,
+          "ageLabel": null,
+          "periodLabel": null
+        }
+      ],
+      "totalBGN": "319.99",
+      "totalEUR": "163.61",
+      "status": "pending",
+      "createdAt": "2026-03-03T08:00:04.379Z",
+      "id": 12
     }
   ],
   "categories": [

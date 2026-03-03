@@ -1,58 +1,81 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CartContext = createContext();
 
-export const CartProvider = ({ children }) => {
+export const CartProvider = ({ children, user }) => {
   const [cartItems, setCartItems] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
-
 
   useEffect(() => {
-    const loadCart = async () => {
+    if (user && user.id) {
+      console.log(`Loading cart for user: ${user.id}`);
+      loadUserCart(user.id);
+    } else {
+      console.log("No user detected, resetting cart state to empty.");
+      setCartItems([]);
+    }
+  }, [user]); 
+
+  const loadUserCart = async (userId) => {
+    if (!userId) return;
+    try {
+      const savedCart = await AsyncStorage.getItem(`cart_${userId}`);
+      if (savedCart) {
+        setCartItems(JSON.parse(savedCart));
+      } else {
+        setCartItems([]);
+      }
+    } catch (e) {
+      console.error("Failed to load cart from storage:", e);
+      setCartItems([]);
+    }
+  };
+
+  const addToCart = async (item, userId) => {
+    const newCart = [...cartItems, item];
+    setCartItems(newCart);
+    
+    if (userId) {
       try {
-        const savedCart = await AsyncStorage.getItem('@user_cart');
-        if (savedCart !== null) {
-          setCartItems(JSON.parse(savedCart));
-        }
+        await AsyncStorage.setItem(`cart_${userId}`, JSON.stringify(newCart));
       } catch (e) {
-        console.error("Failed to load cart", e);
-      } finally {
-        setIsLoaded(true);
+        console.error("Failed to save cart to storage:", e);
       }
-    };
-    loadCart();
-  }, []);
-
-  
-  useEffect(() => {
-    const saveCart = async () => {
-      if (isLoaded) { 
-        try {
-          await AsyncStorage.setItem('@user_cart', JSON.stringify(cartItems));
-        } catch (e) {
-          console.error("Failed to save cart", e);
-        }
-      }
-    };
-    saveCart();
-  }, [cartItems, isLoaded]);
-
-  const addToCart = (item) => {
-    setCartItems((prev) => [...prev, { ...item, cartId: Date.now() }]);
+    }
   };
 
-  const removeFromCart = (cartId) => {
-    setCartItems((prev) => prev.filter(item => item.cartId !== cartId));
+  const removeFromCart = async (cartId, userId) => {
+    const newCart = cartItems.filter(item => item.cartId !== cartId);
+    setCartItems(newCart);
+    
+    if (userId) {
+      try {
+        await AsyncStorage.setItem(`cart_${userId}`, JSON.stringify(newCart));
+      } catch (e) {
+        console.error("Failed to update storage after removal:", e);
+      }
+    }
   };
 
-  const clearCart = async () => {
+  const clearCart = async (userId) => {
     setCartItems([]);
-    await AsyncStorage.removeItem('@user_cart');
+    if (userId) {
+      try {
+        await AsyncStorage.removeItem(`cart_${userId}`);
+      } catch (e) {
+        console.error("Failed to delete cart from storage:", e);
+      }
+    }
   };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, isLoaded }}>
+    <CartContext.Provider value={{ 
+      cartItems, 
+      addToCart, 
+      removeFromCart, 
+      clearCart, 
+      loadUserCart 
+    }}>
       {children}
     </CartContext.Provider>
   );

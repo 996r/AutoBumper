@@ -23,7 +23,7 @@ export default function TabNavigator() {
 
       return <Ionicons name={iconName} size={size} color={color} />;
     },
-    headerShown: true, // Show headers for Profile and Cart
+    headerShown: true, 
   })}
 >
       <Tab.Screen 

@@ -11,7 +11,8 @@ import {
 import { categoryApi } from "../api/categoryApi";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const AutoAssistanceScreen = () => {
+
+const AutoAssistanceScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [assistanceData, setAssistanceData] = useState([]);
   const [selectedAgeGroup, setSelectedAgeGroup] = useState(null);
@@ -22,11 +23,8 @@ const AutoAssistanceScreen = () => {
       try {
         setLoading(true);
         const response = await categoryApi.getAssistanceEurope();
-        
         const data = response.data || [];
         setAssistanceData(data);
-        
-        
         if (data.length > 0) {
           setSelectedAgeGroup(data[0]);
         }
@@ -39,6 +37,26 @@ const AutoAssistanceScreen = () => {
     };
     fetchRates();
   }, []);
+
+  
+  const handleContinue = () => {
+    if (!selectedPeriod) {
+      Alert.alert("Внимание", "Моля, изберете период.");
+      return;
+    }
+
+    navigation.navigate("OfferForm", {
+      selectedOffer: {
+        company: "Assistance Europe", 
+        price: selectedPeriod.bgn,    
+        firstPayment: selectedPeriod.bgn, 
+        planLabel: "1 вноска",
+        type: "Assistance",           
+        ageLabel: selectedAgeGroup.age_label,
+        periodLabel: selectedPeriod.label
+      }
+    });
+  };
 
   if (loading) {
     return (
@@ -54,7 +72,6 @@ const AutoAssistanceScreen = () => {
         <Text style={styles.headerTitle}>Автоасистанс Европа</Text>
         <Text style={styles.headerSubtitle}>Изберете параметри за вашата застраховка</Text>
 
-        
         <Text style={styles.sectionLabel}>Възраст на МПС</Text>
         <View style={styles.ageToggleContainer}>
           {assistanceData.map((group) => (
@@ -79,7 +96,6 @@ const AutoAssistanceScreen = () => {
           ))}
         </View>
 
-      
         <Text style={styles.sectionLabel}>Период на валидност</Text>
         <View style={styles.periodContainer}>
           {selectedAgeGroup?.periods.map((period) => (
@@ -107,7 +123,6 @@ const AutoAssistanceScreen = () => {
           ))}
         </View>
 
-     
         {selectedPeriod && (
           <View style={styles.summaryCard}>
             <View style={styles.summaryRow}>
@@ -116,7 +131,7 @@ const AutoAssistanceScreen = () => {
             </View>
             <TouchableOpacity 
               style={styles.ctaButton}
-              onPress={() => Alert.alert("Успех", "Заявката е приета!")}
+              onPress={handleContinue} 
             >
               <Text style={styles.ctaButtonText}>ПРОДЪЛЖИ</Text>
             </TouchableOpacity>
@@ -126,6 +141,7 @@ const AutoAssistanceScreen = () => {
     </SafeAreaView>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#F2F2F7' },

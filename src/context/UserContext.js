@@ -1,11 +1,14 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {setCartItems} from './CartContext'
+
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  
 
   
 useEffect(() => {
@@ -47,14 +50,16 @@ useEffect(() => {
 
   const logout = async () => {
     setUser(null);
+    
     await AsyncStorage.removeItem('userToken');
     await AsyncStorage.removeItem('userEmail');
     await AsyncStorage.removeItem('userId');
+    navigation.navigate("Login");
   
   };
 
   return (
-    <UserContext.Provider value={{ user, login, logout, loading, updateUser }}>
+    <UserContext.Provider value={{ user, login, logout, setUser ,loading, updateUser }}>
       {children}
     </UserContext.Provider>
   );

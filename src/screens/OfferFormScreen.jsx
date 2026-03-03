@@ -16,10 +16,11 @@ import { useCart } from '../context/CartContext';
 import { useUser } from '../context/UserContext'; 
 import { userApi } from '../api/categoryApi'; 
 
+
+
 export default function OfferFormScreen({ route, navigation }) {
-  
   const { selectedOffer } = route.params;
-  const { addToCart } = useCart();
+  const { addToCart } = useCart(); 
   const { user } = useUser(); 
   
   const [loading, setLoading] = useState(true);
@@ -29,7 +30,6 @@ export default function OfferFormScreen({ route, navigation }) {
     phone: ''
   });
 
-  
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -50,7 +50,6 @@ export default function OfferFormScreen({ route, navigation }) {
         setLoading(false);
       }
     };
-
     fetchProfile();
   }, [user?.id]);
 
@@ -60,7 +59,6 @@ export default function OfferFormScreen({ route, navigation }) {
       return;
     }
 
-    
     const cartItem = {
       cartId: Date.now(), 
       userId: user?.id,
@@ -71,15 +69,18 @@ export default function OfferFormScreen({ route, navigation }) {
       price: selectedOffer.price,          
       firstPayment: selectedOffer.firstPayment,
       plan: selectedOffer.planLabel,
-      
       type: selectedOffer.type || "Liability", 
-      
       carValue: selectedOffer.carValue || null,
+      ageLabel: selectedOffer.ageLabel || null,
+      periodLabel: selectedOffer.periodLabel || null
     };
 
-    addToCart(cartItem);
+  
+    addToCart(cartItem, user?.id); 
 
-    const typeLabel = cartItem.type === 'Casco' ? 'Каското' : 'Офертата';
+    let typeLabel = 'Офертата';
+    if (cartItem.type === 'Casco') typeLabel = 'Каското';
+    if (cartItem.type === 'Assistance') typeLabel = 'Асистансът';
 
     Alert.alert(
       "Успех", 
@@ -91,11 +92,23 @@ export default function OfferFormScreen({ route, navigation }) {
     );
   };
 
+  const getProductInfo = () => {
+    switch(selectedOffer.type) {
+      case 'Casco': 
+        return { label: 'АВТОКАСКО', color: '#5856D6', currency: '€' };
+      case 'Assistance': 
+        return { label: 'АВТОАСИСТАНС', color: '#FF9500', currency: 'лв.' };
+      default: 
+        return { label: 'ГРАЖДАНСКА ОТГОВОРНОСТ', color: '#34C759', currency: 'лв.' };
+    }
+  };
+
+  const productInfo = getProductInfo();
+
   if (loading) {
     return (
       <View style={styles.center}>
         <ActivityIndicator size="large" color="#007AFF" />
-        <Text style={{marginTop: 10}}>Зареждане на данни...</Text>
       </View>
     );
   }
@@ -108,22 +121,29 @@ export default function OfferFormScreen({ route, navigation }) {
       <ScrollView contentContainerStyle={styles.container}>
         
         <View style={styles.summaryCard}>
-          <View style={styles.badge}>
-            <Text style={styles.badgeText}>
-              {selectedOffer.type === 'Casco' ? 'АВТОКАСКО' : 'ГРАЖДАНСКА ОТГОВОРНОСТ'}
-            </Text>
+          <View style={[styles.badge, { backgroundColor: productInfo.color }]}>
+            <Text style={styles.badgeText}>{productInfo.label}</Text>
           </View>
+          
           <Text style={styles.summaryCompany}>{selectedOffer.company}</Text>
+          
           <Text style={styles.summaryPrice}>
-            {(selectedOffer.price || 0).toFixed(2)} {selectedOffer.type === 'Casco' ? '€' : 'лв.'}
+            {(selectedOffer.price || 0).toFixed(2)} {productInfo.currency}
           </Text>
+          
           <Text style={styles.summaryTitle}>План: {selectedOffer.planLabel}</Text>
+          
+          {selectedOffer.type === 'Assistance' && (
+            <Text style={styles.summaryTitle}>
+              {selectedOffer.ageLabel} | {selectedOffer.periodLabel}
+            </Text>
+          )}
         </View>
 
         <View style={styles.form}>
-          <Text style={styles.formSectionTitle}>Данни за полицата</Text>
+          <Text style={styles.formSectionTitle}>Данни за собственика</Text>
           
-          <Text style={styles.label}>Име на собственика</Text>
+          <Text style={styles.label}>Име</Text>
           <TextInput 
             style={styles.input} 
             placeholder="Въведете име"
@@ -139,7 +159,7 @@ export default function OfferFormScreen({ route, navigation }) {
             onChangeText={(val) => setFormData({...formData, lastName: val})}
           />
 
-          <Text style={styles.label}>Телефон за връзка</Text>
+          <Text style={styles.label}>Телефон</Text>
           <TextInput 
             style={styles.input} 
             placeholder="08XXXXXXXX"
@@ -156,6 +176,7 @@ export default function OfferFormScreen({ route, navigation }) {
     </KeyboardAvoidingView>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: { padding: 20 },

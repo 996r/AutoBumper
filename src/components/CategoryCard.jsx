@@ -9,7 +9,7 @@ export default function CategoryCard({ title, price, onPress }) {
       onPress={onPress} 
       activeOpacity={0.7}
     >
-      {/* Left Icon Section */}
+      
       <View style={styles.iconContainer}>
         <Ionicons
           name="shield-checkmark"
@@ -18,7 +18,7 @@ export default function CategoryCard({ title, price, onPress }) {
         />
       </View>
 
-      {/* Center Text Section */}
+      
       <View style={styles.textContainer}>
         <Text style={styles.title} numberOfLines={2}>
           {title}
@@ -28,7 +28,7 @@ export default function CategoryCard({ title, price, onPress }) {
         </Text>
       </View>
 
-      {/* Right Arrow Section */}
+      
       <Ionicons name="chevron-forward" size={20} color="#C7C7CC" />
     </TouchableOpacity>
   );
@@ -42,12 +42,12 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     flexDirection: "row",
     alignItems: "center",
-    // Shadow for iOS
+    
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    // Elevation for Android
+    
     elevation: 3,
   },
   iconContainer: {
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 13,
-    color: "#34C759", // Green for the price value
+    color: "#34C759", 
     marginTop: 2,
     fontWeight: "500",
   },

@@ -17,42 +17,44 @@ import ProfileScreen from "../screens/ProfileScreen";
 const Stack = createNativeStackNavigator();
 
 export default function HomeStackNavigator() {
-
-    const { user, logout, loading } = useUser();
+  const { user, logout } = useUser();
     
   return (
-    <Stack.Navigator>
-      { user ? (
-  
+    <Stack.Navigator
+    
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerRight: () => (
+          user ? (
+            <TouchableOpacity onPress={logout} style={{ marginRight: 15 }}>
+              <Text style={styles.brand}>Logout</Text>
+            </TouchableOpacity>
+          ) : null
+        ),
+      }}
+    >
+      {user ? (
         <Stack.Group>
           <Stack.Screen
             name="Home"
             component={HomeScreen}
             options={{
-              headerShown: true,
+              
               headerTitle: () => <Text style={styles.brand}>AutoBumper</Text>,
-           
-              headerTitleAlign: 'center',
-              headerRight: () => (
-                <TouchableOpacity onPress={logout} style={styles.brand}>
-                  <Text style={styles.brand}>Logout</Text>
-                </TouchableOpacity>
-              ),
             }}
           />
           <Stack.Screen name="Liability" component={LiabilityDetailScreen} options={{ title: "Liability Offers" }} />
           <Stack.Screen name="Casco" component={CascoDetailScreen} options={{ title: "Full CASCO" }} />
           <Stack.Screen name="Assistance" component={AutoAssistanceScreen} options={{ title: "Auto Assistance" }} />
-          <Stack.Screen name= "Cart" component={CartScreen} options={{title:"Cart"}} />
-           <Stack.Screen name= "Profile" component={ProfileScreen} options={{title:"Profile"}} />
+          <Stack.Screen name="Cart" component={CartScreen} options={{ title: "Cart" }} />
+          <Stack.Screen name="Profile" component={ProfileScreen} options={{ title: "Profile" }} />
           <Stack.Screen 
-  name="OfferForm" 
-  component={OfferFormScreen} 
-  options={{ title: "Данни за полица" }} 
-/>
+            name="OfferForm" 
+            component={OfferFormScreen} 
+            options={{ title: "Данни за полица" }} 
+          />
         </Stack.Group>
       ) : (
-        
         <Stack.Group screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen 
@@ -66,9 +68,7 @@ export default function HomeStackNavigator() {
   );
 }
 
-
 const styles = StyleSheet.create({
-  center: { flex: 1, justifyContent: 'center', alignItems: 'center' },
   brand: { fontSize: 22, fontWeight: "bold", color: "#007AFF" },
- 
+  
 });
