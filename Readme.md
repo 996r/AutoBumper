@@ -51,16 +51,8 @@ The logout process is centralized in the UserContext.
 # Profile	Manages ImagePicker for photos and TextInput for car/personal data.
 # Cart	List of selected insurance offers pending checkout.
 
-6. Development Setup
-To run this project locally:
 
-Install dependencies: npm install
-
-Start Expo: npx expo start
-
-API Config: Ensure categoryApi.js points to the correct backend IP address (use your local IP for physical device testing).
-
-7. # Navigation Architecture
+6. # Navigation Architecture
 The application uses React Navigation 6 to manage the user journey. The architecture is designed to be "State-First," meaning the UI reacts to the authentication state rather than manual redirects.
 
 # A. Navigation Hierarchy
@@ -128,3 +120,17 @@ Profile (Tab) → Camera/ImagePicker
 5. Cart Logic (Database Sync)While implemented via the CartContext using AsyncStorage for speed, the following endpoints are used for cross-device synchronization:
 * GET/cart/${userId}Retrieves saved insurance items from the cloud.
 * POST/cartUpdates the cloud database with the current local cart state.
+
+
+
+8. Development Setup
+To run this project locally:
+
+- Install dependencies: npm install
+- Start Expo: npx expo start
+- BackEnd: node server.js 
+
+* Render BackEnd deployed URL: https://autobumper-gv9f.onrender.com/
+
+* Build APK Expo link: https://expo.dev/accounts/h3x3n/projects/AutoBumper/builds/88fe1aa0-7a45-4514-a508-766f1e76290f
+
