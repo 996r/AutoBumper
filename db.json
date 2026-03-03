@@ -19,6 +19,31 @@
       "email": "ivo@gmail.com",
       "password": "$2a$10$GB3q3JZhFinOZ9gNvTrrBOsyXQ3clP1D3etMVjM83eEN46GJG3dKu",
       "id": 4
+    },
+    {
+      "email": "ivan@gmail.com",
+      "password": "$2a$10$a6./eJasw4KBTnRa02kWhOeTPVCqDZN0FGp9nbxgrSMrkaZq3KhoG",
+      "id": 5
+    },
+    {
+      "email": "peter@gmail.com",
+      "password": "$2a$10$U6qZk0D.L9TT87hER39KROocXW9zdEsRGaZaau0zmfw3qKphkjsPa",
+      "id": 6
+    },
+    {
+      "email": "tereza@gmail.com",
+      "password": "$2a$10$5OA1NBKTOUhCTlXUBtdru.Q3oma727dSzeGa36fxA9eC.R8xwh03W",
+      "id": 7
+    },
+    {
+      "email": "tereza1@gmail.com",
+      "password": "$2a$10$MGY5T5UBCBxuzKm7nDh7kOISg2eXDItHRega4XdbtC/pXFxMwGqqO",
+      "id": 8
+    },
+    {
+      "email": "igor@gmail.com",
+      "password": "$2a$10$zl1pzzGUIi0/wi5WKmJktuDGAhV28pFdRHW2nHAaA/IDizxpfmDvm",
+      "id": 9
     }
   ],
   "profiles": [
@@ -41,6 +66,16 @@
       "carYear": "2010",
       "userId": 4,
       "id": 2
+    },
+    {
+      "firstName": "Ivan",
+      "lastName": "Ivanov",
+      "phone": "0886820461",
+      "carMake": "Dacia",
+      "carModel": "Sandero",
+      "carYear": "2015",
+      "userId": 5,
+      "id": 3
     }
   ],
   "orders": [
@@ -279,6 +314,31 @@
       "status": "pending",
       "createdAt": "2026-03-03T08:00:04.379Z",
       "id": 12
+    },
+    {
+      "userId": 5,
+      "items": [
+        {
+          "cartId": 1772532672173,
+          "userId": 5,
+          "firstName": "Ivan",
+          "lastName": "Ivanov",
+          "phone": "0886820461",
+          "company": "ДЗИ",
+          "price": 319.82,
+          "firstPayment": 319.82,
+          "plan": "1 вноска",
+          "type": "Liability",
+          "carValue": null,
+          "ageLabel": null,
+          "periodLabel": null
+        }
+      ],
+      "totalBGN": "319.82",
+      "totalEUR": "163.52",
+      "status": "pending",
+      "createdAt": "2026-03-03T10:11:15.015Z",
+      "id": 13
     }
   ],
   "categories": [

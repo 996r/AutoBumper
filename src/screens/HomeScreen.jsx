@@ -59,7 +59,6 @@ export default function HomeScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-     
         <Image
           source={require("../../assets/AutoBumperLogo.png")}
           style={styles.logo}

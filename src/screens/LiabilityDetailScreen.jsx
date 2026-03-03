@@ -1,15 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import { categoryApi } from "../api/categoryApi";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useRoute } from '@react-navigation/native';
+import { useRoute } from "@react-navigation/native";
 
 export default function LiabilityDetailScreen({ navigation }) {
   const route = useRoute();
   const { id } = route.params || {};
   const [offers, setOffers] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedTab, setSelectedTab] = useState('one_time'); 
+  const [selectedTab, setSelectedTab] = useState("one_time");
 
   useEffect(() => {
     const fetchOffers = async () => {
@@ -29,25 +36,25 @@ export default function LiabilityDetailScreen({ navigation }) {
     const paymentPlan = item[selectedTab];
 
     const handleNavigation = () => {
-      
-      const finalPrice = selectedTab === 'one_time' ? paymentPlan.bgn : paymentPlan.total_bgn;
-      
-      const firstInstallment = selectedTab === 'one_time' ? paymentPlan.bgn : paymentPlan.first_bgn;
-      
+      const finalPrice =
+        selectedTab === "one_time" ? paymentPlan.bgn : paymentPlan.total_bgn;
+
+      const firstInstallment =
+        selectedTab === "one_time" ? paymentPlan.bgn : paymentPlan.first_bgn;
+
       const planLabels = {
-        'one_time': '1 вноска',
-        'installments_2': '2 вноски',
-        'installments_4': '4 вноски'
+        one_time: "1 вноска",
+        installments_2: "2 вноски",
+        installments_4: "4 вноски",
       };
 
-      
-      navigation.navigate("OfferForm", { 
+      navigation.navigate("OfferForm", {
         selectedOffer: {
           company: item.company,
           price: finalPrice,
-          firstPayment: firstInstallment, 
-          planLabel: planLabels[selectedTab]
-        } 
+          firstPayment: firstInstallment,
+          planLabel: planLabels[selectedTab],
+        },
       });
     };
 
@@ -58,10 +65,15 @@ export default function LiabilityDetailScreen({ navigation }) {
           {paymentPlan ? (
             <View>
               <Text style={styles.priceText}>
-                {selectedTab === 'one_time' ? paymentPlan.bgn.toFixed(2) : paymentPlan.total_bgn.toFixed(2)} лв.
+                {selectedTab === "one_time"
+                  ? paymentPlan.bgn.toFixed(2)
+                  : paymentPlan.total_bgn.toFixed(2)}{" "}
+                лв.
               </Text>
-              {selectedTab !== 'one_time' && (
-                <Text style={styles.subText}>1-ва вноска: {paymentPlan.first_bgn.toFixed(2)} лв.</Text>
+              {selectedTab !== "one_time" && (
+                <Text style={styles.subText}>
+                  1-ва вноска: {paymentPlan.first_bgn.toFixed(2)} лв.
+                </Text>
               )}
             </View>
           ) : (
@@ -69,8 +81,11 @@ export default function LiabilityDetailScreen({ navigation }) {
           )}
         </View>
 
-        <TouchableOpacity 
-          style={[styles.selectButton, !paymentPlan && { backgroundColor: '#ccc' }]} 
+        <TouchableOpacity
+          style={[
+            styles.selectButton,
+            !paymentPlan && { backgroundColor: "#ccc" },
+          ]}
           disabled={!paymentPlan}
           onPress={handleNavigation}
         >
@@ -80,22 +95,32 @@ export default function LiabilityDetailScreen({ navigation }) {
     );
   };
 
-  if (loading) return <ActivityIndicator style={{ flex: 1 }} size="large" color="#007AFF" />;
+  if (loading)
+    return (
+      <ActivityIndicator style={{ flex: 1 }} size="large" color="#007AFF" />
+    );
 
   return (
-    <SafeAreaView style={styles.container} edges={['bottom', 'left', 'right']}>
+    <SafeAreaView style={styles.container} edges={["bottom", "left", "right"]}>
       <View style={styles.tabContainer}>
         {[
-          { id: 'one_time', label: '1 вноска' },
-          { id: 'installments_2', label: '2 вноски' },
-          { id: 'installments_4', label: '4 вноски' },
+          { id: "one_time", label: "1 вноска" },
+          { id: "installments_2", label: "2 вноски" },
+          { id: "installments_4", label: "4 вноски" },
         ].map((tab) => (
-          <TouchableOpacity 
-            key={tab.id} 
+          <TouchableOpacity
+            key={tab.id}
             style={[styles.tab, selectedTab === tab.id && styles.activeTab]}
             onPress={() => setSelectedTab(tab.id)}
           >
-            <Text style={[styles.tabLabel, selectedTab === tab.id && styles.activeTabLabel]}>{tab.label}</Text>
+            <Text
+              style={[
+                styles.tabLabel,
+                selectedTab === tab.id && styles.activeTabLabel,
+              ]}
+            >
+              {tab.label}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -112,17 +137,47 @@ export default function LiabilityDetailScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#F2F2F7" },
-  tabContainer: { flexDirection: 'row', justifyContent: 'space-around', padding: 10, backgroundColor: '#fff', borderBottomWidth: 1, borderColor: '#E5E5EA' },
-  tab: { paddingVertical: 8, paddingHorizontal: 12, borderRadius: 20, backgroundColor: '#E5E5EA' },
-  activeTab: { backgroundColor: '#007AFF' },
-  tabLabel: { fontSize: 13, color: '#3A3A3C' },
-  activeTabLabel: { color: '#fff', fontWeight: 'bold' },
-  offerCard: { backgroundColor: "#fff", borderRadius: 12, padding: 16, marginBottom: 12, flexDirection: "row", justifyContent: "space-between", alignItems: "center" },
+  tabContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10,
+    backgroundColor: "#fff",
+    borderBottomWidth: 1,
+    borderColor: "#E5E5EA",
+  },
+  tab: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    backgroundColor: "#E5E5EA",
+  },
+  activeTab: { backgroundColor: "#007AFF" },
+  tabLabel: { fontSize: 13, color: "#3A3A3C" },
+  activeTabLabel: { color: "#fff", fontWeight: "bold" },
+  offerCard: {
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 12,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   leftContent: { flex: 1 },
-  companyName: { fontSize: 17, fontWeight: "700", color: "#1C1C1E", marginBottom: 5 },
+  companyName: {
+    fontSize: 17,
+    fontWeight: "700",
+    color: "#1C1C1E",
+    marginBottom: 5,
+  },
   priceText: { fontSize: 20, fontWeight: "800", color: "#007AFF" },
   subText: { fontSize: 12, color: "#8E8E93", marginTop: 2 },
   unavailableText: { fontSize: 14, color: "#8E8E93", fontStyle: "italic" },
-  selectButton: { backgroundColor: "#007AFF", paddingVertical: 10, paddingHorizontal: 20, borderRadius: 8 },
+  selectButton: {
+    backgroundColor: "#007AFF",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
   buttonText: { color: "#fff", fontWeight: "700" },
 });

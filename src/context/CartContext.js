@@ -8,10 +8,8 @@ export const CartProvider = ({ children, user }) => {
 
   useEffect(() => {
     if (user && user.id) {
-      console.log(`Loading cart for user: ${user.id}`);
       loadUserCart(user.id);
     } else {
-      console.log("No user detected, resetting cart state to empty.");
       setCartItems([]);
     }
   }, [user]); 

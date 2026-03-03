@@ -18,12 +18,11 @@ export default function CartScreen({ navigation }) {
   const { cartItems, removeFromCart, clearCart } = useCart();
   const { user } = useUser();
 
-  
   const BGN_TO_EUR = 1.95583;
 
-  
   const totalAmountBGN = cartItems.reduce((sum, item) => {
-    const priceInBGN = item.type === "Casco" ? item.price * BGN_TO_EUR : item.price;
+    const priceInBGN =
+      item.type === "Casco" ? item.price * BGN_TO_EUR : item.price;
     return sum + (priceInBGN || 0);
   }, 0);
 
@@ -55,7 +54,6 @@ export default function CartScreen({ navigation }) {
     const isAssistance = item.type === "Assistance";
     const currency = isCasco ? "€" : "лв.";
 
-    
     let badgeTitle = "ГРАЖДАНСКА";
     let badgeStyle = styles.liabilityBadge;
     let cardBorderStyle = null;
@@ -70,7 +68,6 @@ export default function CartScreen({ navigation }) {
       cardBorderStyle = styles.assistanceBorder;
     }
 
-    
     let mathString = "";
     const isOneTime = item.plan === "1 вноска";
 
@@ -83,7 +80,6 @@ export default function CartScreen({ navigation }) {
       mathString = `${item.firstPayment.toFixed(2)} + (3 × ${otherAmount.toFixed(2)})`;
     }
 
-    
     const secondaryPrice = isCasco
       ? (item.price * BGN_TO_EUR).toFixed(2)
       : (item.price / BGN_TO_EUR).toFixed(2);
@@ -92,26 +88,24 @@ export default function CartScreen({ navigation }) {
     return (
       <View style={[styles.itemCard, cardBorderStyle]}>
         <View style={styles.itemInfo}>
-          
           <View style={[styles.typeBadge, badgeStyle]}>
             <Text style={styles.typeBadgeText}>{badgeTitle}</Text>
           </View>
 
           <Text style={styles.companyName}>{item.company}</Text>
           <Text style={styles.planBadge}>{item.plan}</Text>
-          
+
           <Text style={styles.clientName}>
-            <Ionicons name="person-outline" size={12} /> {item.firstName} {item.lastName}
+            <Ionicons name="person-outline" size={12} /> {item.firstName}{" "}
+            {item.lastName}
           </Text>
 
-          
           {isAssistance && item.periodLabel && (
             <Text style={styles.paramsText}>
               {item.ageLabel} | {item.periodLabel}
             </Text>
           )}
 
-         
           {!isOneTime && mathString !== "" && (
             <View style={styles.mathContainer}>
               <Text style={styles.mathLabel}>Разбивка на вноските:</Text>
@@ -164,7 +158,7 @@ export default function CartScreen({ navigation }) {
             renderItem={renderItem}
             contentContainerStyle={{ paddingBottom: 20 }}
           />
-          
+
           <View style={styles.footer}>
             <View style={styles.totalRow}>
               <Text style={styles.footerLabel}>Обща стойност:</Text>
@@ -193,7 +187,12 @@ export default function CartScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#F2F2F7" },
   emptyContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
-  emptyText: { fontSize: 18, color: "#8E8E93", marginVertical: 15, fontWeight: '500' },
+  emptyText: {
+    fontSize: 18,
+    color: "#8E8E93",
+    marginVertical: 15,
+    fontWeight: "500",
+  },
   browseBtn: {
     backgroundColor: "#007AFF",
     paddingHorizontal: 35,
@@ -202,11 +201,10 @@ const styles = StyleSheet.create({
     shadowColor: "#007AFF",
     shadowOpacity: 0.3,
     shadowRadius: 10,
-    elevation: 5
+    elevation: 5,
   },
   browseText: { color: "#fff", fontWeight: "900", letterSpacing: 0.5 },
-  
-  
+
   itemCard: {
     backgroundColor: "#fff",
     marginHorizontal: 16,
@@ -222,7 +220,6 @@ const styles = StyleSheet.create({
   cascoBorder: { borderLeftWidth: 6, borderLeftColor: "#5856D6" },
   assistanceBorder: { borderLeftWidth: 6, borderLeftColor: "#FF9500" },
 
-  
   typeBadge: {
     alignSelf: "flex-start",
     paddingHorizontal: 8,
@@ -235,14 +232,27 @@ const styles = StyleSheet.create({
   assistanceBadge: { backgroundColor: "#FF9500" },
   typeBadgeText: { color: "#fff", fontSize: 10, fontWeight: "900" },
 
-  
   itemInfo: { flex: 1 },
   companyName: { fontSize: 19, fontWeight: "800", color: "#1C1C1E" },
-  planBadge: { color: "#007AFF", fontWeight: "700", fontSize: 13, marginVertical: 4 },
-  clientName: { color: "#8E8E93", fontSize: 12, fontWeight: "600", marginBottom: 4 },
-  paramsText: { fontSize: 11, color: '#8E8E93', fontStyle: 'italic', marginBottom: 5 },
+  planBadge: {
+    color: "#007AFF",
+    fontWeight: "700",
+    fontSize: 13,
+    marginVertical: 4,
+  },
+  clientName: {
+    color: "#8E8E93",
+    fontSize: 12,
+    fontWeight: "600",
+    marginBottom: 4,
+  },
+  paramsText: {
+    fontSize: 11,
+    color: "#8E8E93",
+    fontStyle: "italic",
+    marginBottom: 5,
+  },
 
-  
   mathContainer: {
     marginTop: 10,
     padding: 10,
@@ -251,27 +261,50 @@ const styles = StyleSheet.create({
     borderLeftWidth: 3,
     borderLeftColor: "#007AFF",
   },
-  mathLabel: { fontSize: 9, color: "#8E8E93", textTransform: "uppercase", marginBottom: 3, fontWeight: "700" },
+  mathLabel: {
+    fontSize: 9,
+    color: "#8E8E93",
+    textTransform: "uppercase",
+    marginBottom: 3,
+    fontWeight: "700",
+  },
   mathValue: { fontSize: 12, fontWeight: "800", color: "#1C1C1E" },
 
-  
-  itemRight: { alignItems: "flex-end", justifyContent: "center", minWidth: 120 },
-  priceLabel: { fontSize: 10, color: "#8E8E93", textTransform: "uppercase", fontWeight: "700" },
+  itemRight: {
+    alignItems: "flex-end",
+    justifyContent: "center",
+    minWidth: 120,
+  },
+  priceLabel: {
+    fontSize: 10,
+    color: "#8E8E93",
+    textTransform: "uppercase",
+    fontWeight: "700",
+  },
   priceText: { fontSize: 20, fontWeight: "900", color: "#1C1C1E" },
-  secondaryPriceText: { fontSize: 12, color: "#8E8E93", fontWeight: "600", marginTop: 2 },
-  
-  removeBtn: { 
-    flexDirection: "row", 
-    alignItems: "center", 
+  secondaryPriceText: {
+    fontSize: 12,
+    color: "#8E8E93",
+    fontWeight: "600",
+    marginTop: 2,
+  },
+
+  removeBtn: {
+    flexDirection: "row",
+    alignItems: "center",
     marginTop: 15,
-    backgroundColor: '#FFF5F5',
+    backgroundColor: "#FFF5F5",
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderRadius: 8
+    borderRadius: 8,
   },
-  removeBtnText: { color: "#FF3B30", fontSize: 11, fontWeight: "800", marginLeft: 4 },
+  removeBtnText: {
+    color: "#FF3B30",
+    fontSize: 11,
+    fontWeight: "800",
+    marginLeft: 4,
+  },
 
-  
   footer: {
     backgroundColor: "#fff",
     padding: 20,
@@ -279,11 +312,21 @@ const styles = StyleSheet.create({
     borderColor: "#E5E5EA",
     paddingBottom: Platform.OS === "ios" ? 40 : 25,
   },
-  totalRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 15 },
+  totalRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 15,
+  },
   footerLabel: { fontSize: 17, color: "#1C1C1E", fontWeight: "800" },
   footerAmountBGN: { fontSize: 28, fontWeight: "900", color: "#1C1C1E" },
-  footerAmountEUR: { fontSize: 16, fontWeight: "700", color: "#007AFF", marginTop: 2 },
-  
+  footerAmountEUR: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#007AFF",
+    marginTop: 2,
+  },
+
   checkoutBtn: {
     backgroundColor: "#007AFF",
     padding: 18,
@@ -292,7 +335,12 @@ const styles = StyleSheet.create({
     shadowColor: "#007AFF",
     shadowOpacity: 0.3,
     shadowRadius: 12,
-    elevation: 5
+    elevation: 5,
   },
-  checkoutText: { color: "#fff", fontWeight: "900", fontSize: 17, letterSpacing: 0.5 },
+  checkoutText: {
+    color: "#fff",
+    fontWeight: "900",
+    fontSize: 17,
+    letterSpacing: 0.5,
+  },
 });
