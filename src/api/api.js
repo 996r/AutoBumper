@@ -2,7 +2,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://192.168.5.102:3001",
+  // baseURL: "http://192.168.5.102:3001",
+  baseURL: "https://autobumper-gv9f.onrender.com",
   headers: {
     "Content-Type": "application/json",
   },
